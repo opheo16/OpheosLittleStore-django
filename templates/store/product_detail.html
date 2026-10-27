@@ -1,0 +1,291 @@
+
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+
+<style>
+    .product-section {
+        background: #fffaf7;
+        padding: 50px 0;
+        min-height: 80vh;
+    }
+
+    .product-card {
+        background: #ffffff;
+        border-radius: 18px;
+        overflow: hidden;
+        box-shadow: 0 8px 30px rgba(80, 50, 40, 0.08);
+        border: 1px solid #f3e5df;
+    }
+
+    .product-image-box {
+        background: #fdf1eb;
+        padding: 30px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        min-height: 430px;
+    }
+
+    .product-image-box img {
+        width: 100%;
+        max-height: 480px;
+        object-fit: contain;
+        border-radius: 12px;
+    }
+
+    .product-details {
+        padding: 40px 35px;
+    }
+
+    .product-label {
+        display: inline-block;
+        background: #f8e4dc;
+        color: #875b4e;
+        padding: 7px 14px;
+        border-radius: 20px;
+        font-size: 12px;
+        letter-spacing: 1px;
+        text-transform: uppercase;
+        margin-bottom: 18px;
+    }
+
+    .product-title {
+        font-size: 30px;
+        font-weight: 600;
+        color: #3f302c;
+        margin-bottom: 12px;
+    }
+
+    .product-price {
+        font-size: 27px;
+        font-weight: 600;
+        color: #a05e4e;
+    }
+
+    .product-description {
+        color: #796b65;
+        line-height: 1.9;
+        margin: 20px 0;
+        white-space: pre-line;
+    }
+
+    .quantity-label {
+        display: block;
+        color: #493a35;
+        font-weight: 600;
+        margin-bottom: 10px;
+    }
+
+    .quantity-control {
+        display: inline-flex;
+        align-items: center;
+        border: 1px solid #e8d7d0;
+        border-radius: 8px;
+        overflow: hidden;
+        background: white;
+        height: 43px;
+    }
+
+    .quantity-control button {
+        width: 42px;
+        height: 42px;
+        border: none;
+        background: #fdf1eb;
+        color: #805447;
+        font-size: 22px;
+        cursor: pointer;
+    }
+
+    .quantity-control button:hover {
+        background: #f5ddd3;
+    }
+
+    .quantity-control input {
+        width: 48px;
+        height: 42px;
+        border: none;
+        outline: none;
+        text-align: center;
+        font-size: 16px;
+        color: #493a35;
+        background: white;
+    }
+
+    .add-cart-btn {
+        display: block;
+        width: 100%;
+        padding: 14px;
+        margin-top: 24px;
+        background: #a66b59;
+        color: white;
+        border: none;
+        border-radius: 9px;
+        text-align: center;
+        font-size: 15px;
+        font-weight: 600;
+        text-decoration: none;
+        transition: 0.3s;
+        cursor: pointer;
+    }
+
+    .add-cart-btn:hover {
+        background: #855141;
+        color: white;
+        text-decoration: none;
+    }
+
+    .handmade-note {
+        margin-top: 20px;
+        padding: 14px;
+        background: #fff8f4;
+        border-radius: 9px;
+        color: #876d62;
+        font-size: 13px;
+        text-align: center;
+    }
+
+    @media (max-width: 767px) {
+        .product-section {
+            padding: 25px 12px;
+        }
+
+        .product-image-box {
+            min-height: 300px;
+            padding: 20px;
+        }
+
+        .product-details {
+            padding: 28px 22px;
+        }
+
+        .product-title {
+            font-size: 25px;
+        }
+    }
+</style>
+
+<section class="product-section">
+    <div class="container">
+
+        <div class="product-card">
+            <div class="row no-gutters">
+
+                <!-- Product Image -->
+                <div class="col-md-6">
+                    <div class="product-image-box">
+                        <img
+                            src="{{ single_product.images.url }}"
+                            alt="{{ single_product.product_name }}"
+                        >
+                    </div>
+                </div>
+
+                <!-- Product Details -->
+                <div class="col-md-6">
+                    <div class="product-details">
+
+                        <span class="product-label">
+                            Handmade with love ♡
+                        </span>
+
+                        <h1 class="product-title">
+                            {{ single_product.product_name }}
+                        </h1>
+
+                        <div class="product-price">
+                            ₹{{ single_product.price }}
+                        </div>
+
+                        <p class="product-description">
+                            {{ single_product.description }}
+                        </p>
+
+                        <hr style="border-color: #f0e3dd;">
+
+                        <!-- Quantity Selector -->
+                        <label class="quantity-label">
+                            Quantity
+                        </label>
+
+                        <div class="quantity-control">
+                            <button type="button" id="minus-btn"
+                                    aria-label="Decrease quantity">−</button>
+
+                            <input type="number" id="quantity"
+                                   name="quantity" value="1"
+                                   min="1" max="99"
+                                   aria-label="Product quantity">
+
+                            <button type="button" id="plus-btn"
+                                    aria-label="Increase quantity">+</button>
+                        </div>
+
+                        <!-- Add to Cart -->
+                        <a href="./product-detail.html"
+                           class="add-cart-btn"
+                           id="add-cart-btn">
+                            ♡ Add to Cart
+                        </a>
+
+                        <div class="handmade-note">
+                            ♡ Every piece is handmade with care.
+                            Made special, just for you!
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="text-center mt-4">
+            <a href="{% url 'store' %}"
+               style="color: #956858; text-decoration: none;">
+                ← Continue Shopping
+            </a>
+        </div>
+
+    </div>
+</section>
+
+<script>
+    const quantityInput = document.getElementById('quantity');
+    const minusBtn = document.getElementById('minus-btn');
+    const plusBtn = document.getElementById('plus-btn');
+
+    minusBtn.addEventListener('click', function () {
+        let quantity = parseInt(quantityInput.value) || 1;
+
+        if (quantity > 1) {
+            quantityInput.value = quantity - 1;
+        }
+    });
+
+    plusBtn.addEventListener('click', function () {
+        let quantity = parseInt(quantityInput.value) || 1;
+
+        if (quantity < 99) {
+            quantityInput.value = quantity + 1;
+        }
+    });
+
+    quantityInput.addEventListener('change', function () {
+        let quantity = parseInt(this.value) || 1;
+        this.value = Math.min(99, Math.max(1, quantity));
+    });
+
+    document.getElementById('add-cart-btn').addEventListener('click',
+        function (event) {
+            event.preventDefault();
+
+            const quantity = quantityInput.value;
+
+            alert('Selected quantity: ' + quantity +
+                  '. Connect this button to your Django cart view to add the product.');
+        }
+    );
+</script>
+
+{% endblock %}

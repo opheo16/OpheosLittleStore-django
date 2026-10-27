@@ -1,0 +1,341 @@
+
+{% load static %}
+
+<style>
+    .section-header {
+        background: #fffaf7;
+    }
+
+    .top-navbar {
+        background: #f8eee8;
+        border-bottom: 1px solid #f0e0d7;
+        font-size: 13px;
+    }
+
+    .top-navbar .nav-link {
+        color: #80675d;
+        padding: 10px 12px;
+    }
+
+    .top-navbar .nav-link:hover {
+        color: #a66b59;
+    }
+
+    .header-main {
+        background: #fffaf7;
+        padding: 17px 0;
+        border-bottom: 1px solid #f0e0d7 !important;
+    }
+
+    .brand-wrap {
+        text-decoration: none !important;
+        display: inline-flex;
+        align-items: center;
+        gap: 9px;
+    }
+
+    .brand-logo {
+        width: 48px;
+        height: 48px;
+        object-fit: contain;
+    }
+
+    .brand-name {
+        font-family: Georgia, serif;
+        font-size: 21px;
+        font-weight: bold;
+        color: #a66b59;
+        white-space: nowrap;
+        margin: 0;
+    }
+
+    .brand-tagline {
+        font-size: 10px;
+        letter-spacing: 1px;
+        color: #998177;
+        margin: 2px 0 0;
+    }
+
+    .cute-btn {
+        background: #a66b59;
+        color: white !important;
+        border: 1px solid #a66b59;
+        border-radius: 8px;
+        padding: 10px 14px;
+        font-size: 13px;
+        transition: 0.3s;
+    }
+
+    .cute-btn:hover {
+        background: #895341;
+        border-color: #895341;
+    }
+
+    .cute-outline-btn {
+        color: #a66b59 !important;
+        border: 1px solid #e7c9bd;
+        border-radius: 8px;
+        padding: 9px 16px;
+        background: white;
+        font-size: 13px;
+    }
+
+    .cute-outline-btn:hover {
+        background: #f8eee8;
+    }
+
+    .cute-search .form-control {
+        border: 1px solid #ead9d1;
+        border-right: 0;
+        border-radius: 9px 0 0 9px;
+        background: #ffffff;
+        font-size: 13px;
+        height: 42px;
+    }
+
+    .cute-search .form-control:focus {
+        box-shadow: none;
+        border-color: #c99a88;
+    }
+
+    .cute-search .input-group-append .btn {
+        border-radius: 0 9px 9px 0;
+        height: 42px;
+    }
+
+    .account-links {
+        font-size: 13px;
+        white-space: nowrap;
+    }
+
+    .account-links a {
+        color: #80675d;
+        text-decoration: none;
+    }
+
+    .account-links a:hover {
+        color: #a66b59;
+    }
+
+    .cart-link {
+        position: relative;
+        color: #a66b59;
+        font-size: 20px;
+        text-decoration: none !important;
+    }
+
+    .cart-circle {
+        width: 42px;
+        height: 42px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 50%;
+        background: #f8e9e1;
+        border: 1px solid #f0d8cc;
+    }
+
+    .cart-badge {
+        position: absolute;
+        top: -5px;
+        right: -7px;
+        font-size: 10px;
+        border-radius: 50%;
+        background: #a66b59;
+        color: white;
+        padding: 4px 6px;
+    }
+
+    .category-menu {
+        border: 1px solid #f0e0d7;
+        border-radius: 10px;
+        box-shadow: 0 8px 20px rgba(80, 50, 40, 0.08);
+        padding: 7px;
+    }
+
+    .category-menu .dropdown-item {
+        font-size: 13px;
+        padding: 9px 12px;
+        border-radius: 6px;
+        color: #72584e;
+    }
+
+    .category-menu .dropdown-item:hover {
+        background: #fff0e8;
+        color: #a66b59;
+    }
+
+    @media (max-width: 767px) {
+        .header-main {
+            padding: 14px 0;
+        }
+
+        .brand-logo {
+            width: 38px;
+            height: 38px;
+        }
+
+        .brand-name {
+            font-size: 17px;
+        }
+
+        .brand-tagline {
+            font-size: 8px;
+        }
+
+        .header-main .row {
+            row-gap: 14px;
+        }
+
+        .mobile-search {
+            order: 4;
+        }
+
+        .account-links {
+            font-size: 12px;
+        }
+
+        .cute-btn {
+            padding: 9px 10px;
+        }
+    }
+</style>
+
+<header class="section-header">
+
+    <!-- Top Navbar -->
+    <nav class="navbar navbar-expand-sm navbar-light top-navbar p-0">
+        <div class="container">
+
+            <button class="navbar-toggler" type="button"
+                    data-toggle="collapse" data-target="#navbarTop4"
+                    aria-controls="navbarTop4" aria-expanded="false"
+                    aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarTop4">
+
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item">
+                        <span class="nav-link">
+                            ♡ Handmade with love, just for you
+                        </span>
+                    </li>
+                </ul>
+
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link"
+                           href="https://www.instagram.com/opheos.littlestore/"
+                           target="_blank" rel="noopener noreferrer">
+                            <i class="fab fa-instagram"></i>
+                            Follow our little world
+                        </a>
+                    </li>
+                </ul>
+
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Navbar -->
+    <section class="header-main">
+        <div class="container">
+
+            <div class="row align-items-center">
+
+                <!-- Brand Logo -->
+                <div class="col-lg-3 col-md-4 col-7">
+                    <a href="/" class="brand-wrap">
+                        <!-- <img class="brand-logo"
+                             src="{% static 'images/logo.png' %}"
+                             alt="Opheos Little Store Logo"> -->
+
+                        <div>
+                            <h5 class="brand-name">
+                                Opheos
+                            </h5>
+                            <p class="brand-tagline">
+                                LITTLE STORE ♡
+                            </p>
+                        </div>
+                    </a>
+                </div>
+
+                <!-- Categories -->
+                <div class="col-lg-2 col-md-3 col-5 text-right">
+                    <div class="dropdown d-inline-block">
+                        <button type="button"
+                                class="btn cute-btn dropdown-toggle"
+                                data-toggle="dropdown">
+                            <i class="fa fa-bars"></i>
+                            Shop
+                        </button>
+
+                        <div class="dropdown-menu category-menu">
+                            <a class="dropdown-item"
+                               href="{% url 'store' %}">
+                                ✿ All Products
+                            </a>
+
+                            {% for category in links %}
+                                <a class="dropdown-item"
+                                   href="{{ category.get_url }}">
+                                    {{ category.category_name }}
+                                </a>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+
+        <!-- Search -->
+<div class="col-lg-4 col-md-5 col-12 mobile-search">
+    <form action="#" method="GET" class="cute-search">
+        <div class="input-group">
+            <input type="text"
+                   class="form-control"
+                   placeholder="Find something cute..."
+                   disabled>
+            <div class="input-group-append">
+                <button class="btn cute-btn" type="button" disabled>
+                    <i class="fa fa-search"></i>
+                </button>
+            </div>
+        </div>
+    </form>
+</div>
+				
+
+                <!-- Account and Cart -->
+                <div class="col-lg-3 col-md-12 col-12">
+                    <div class="d-flex align-items-center justify-content-end">
+
+                        <div class="account-links mr-3">
+                            <small style="color: #998177;">
+                                Welcome, lovely!
+                            </small>
+
+                            <div>
+                                <a href="./signin.html">Sign in</a>
+                                <span style="color: #d9c5bb;"> | </span>
+                                <a href="./register.html">Register</a>
+                            </div>
+                        </div>
+
+                        <a href="./cart.html" class="cart-link"
+                           aria-label="Shopping cart">
+                            <span class="cart-circle">
+                                <i class="fa fa-shopping-cart"></i>
+                            </span>
+                            <span class="cart-badge">0</span>
+                        </a>
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+</header>

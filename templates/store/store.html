@@ -1,0 +1,583 @@
+
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+
+<style>
+    /* Store Page Theme */
+    .store-page {
+        background: #fffaf7;
+        color: #72584e;
+        padding-bottom: 45px;
+        min-height: 70vh;
+    }
+
+    .store-pagetop {
+        background: #f8eee8;
+        border-bottom: 1px solid #f0e0d7;
+        padding: 35px 0;
+        margin-bottom: 30px;
+    }
+
+    .store-pagetop h2 {
+        font-family: Georgia, serif;
+        color: #805648;
+        font-size: 34px;
+        margin-bottom: 8px;
+    }
+
+    .store-pagetop p {
+        color: #998177;
+        font-size: 14px;
+        margin: 0;
+    }
+
+    /* Sidebar */
+    .store-sidebar {
+        background: #fff;
+        border: 1px solid #f0e0d7;
+        border-radius: 12px;
+        overflow: hidden;
+        margin-bottom: 25px;
+    }
+
+    .filter-group {
+        border-bottom: 1px solid #f4e8e1;
+    }
+
+    .filter-group:last-child {
+        border-bottom: none;
+    }
+
+    .filter-header {
+        background: #fffaf7;
+        padding: 15px 17px;
+    }
+
+    .filter-header a {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        color: #805648 !important;
+        text-decoration: none !important;
+    }
+
+    .filter-header .title {
+        font-family: Georgia, serif;
+        font-size: 16px;
+        margin: 0;
+        font-weight: bold;
+    }
+
+    .filter-header .icon-control {
+        color: #a66b59;
+        font-size: 12px;
+    }
+
+    .filter-body {
+        padding: 15px 17px;
+    }
+
+    .store-category-list {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+    }
+
+    .store-category-list li {
+        margin-bottom: 5px;
+    }
+
+    .store-category-list li:last-child {
+        margin-bottom: 0;
+    }
+
+    .store-category-list a {
+        display: block;
+        color: #80675d;
+        font-size: 13px;
+        padding: 9px 10px;
+        border-radius: 7px;
+        text-decoration: none;
+        transition: 0.2s;
+    }
+
+    .store-category-list a:hover {
+        background: #f8eee8;
+        color: #a66b59;
+        padding-left: 15px;
+    }
+
+    .store-filter-label {
+        color: #998177;
+        font-size: 12px;
+        margin-bottom: 6px;
+    }
+
+    .store-filter-select {
+        height: 39px;
+        border: 1px solid #ead9d1;
+        border-radius: 7px;
+        background-color: #fff;
+        color: #72584e;
+        font-size: 12px;
+    }
+
+    .store-filter-select:focus {
+        border-color: #c99a88;
+        box-shadow: none;
+    }
+
+    /* Buttons */
+    .store-btn {
+        display: inline-block;
+        background: #a66b59;
+        color: #fff !important;
+        border: 1px solid #a66b59;
+        border-radius: 8px;
+        padding: 10px 15px;
+        font-size: 12px;
+        text-decoration: none !important;
+        transition: 0.3s;
+        cursor: pointer;
+    }
+
+    .store-btn:hover {
+        background: #895341;
+        border-color: #895341;
+    }
+
+    .store-outline-btn {
+        display: inline-block;
+        color: #a66b59 !important;
+        background: #fff;
+        border: 1px solid #e7c9bd;
+        border-radius: 8px;
+        padding: 9px 14px;
+        font-size: 12px;
+        text-decoration: none !important;
+        transition: 0.3s;
+    }
+
+    .store-outline-btn:hover {
+        background: #f8eee8;
+    }
+
+    /* Products Header */
+    .store-results-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 12px;
+        border-bottom: 1px solid #f0e0d7;
+        padding-bottom: 18px;
+        margin-bottom: 22px;
+    }
+
+    .store-results-header h3 {
+        font-family: Georgia, serif;
+        color: #805648;
+        font-size: 24px;
+        margin: 0 0 6px;
+    }
+
+    .store-results-header p {
+        color: #998177;
+        font-size: 12px;
+        margin: 0;
+    }
+
+    .store-count {
+        color: #a66b59;
+        font-weight: bold;
+        white-space: nowrap;
+    }
+
+    /* Product Cards */
+    .store-product-card {
+        height: calc(100% - 22px);
+        background: #fff;
+        border: 1px solid #f0e0d7;
+        border-radius: 12px;
+        overflow: hidden;
+        margin-bottom: 22px;
+        transition: transform 0.3s, box-shadow 0.3s;
+    }
+
+    .store-product-card:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 10px 25px rgba(80, 50, 40, 0.09);
+    }
+
+    .store-product-image {
+        display: block;
+        background: #f8eee8;
+        overflow: hidden;
+    }
+
+    .store-product-image img {
+        display: block;
+        width: 100%;
+        height: 225px;
+        object-fit: cover;
+        transition: transform 0.4s;
+    }
+
+    .store-product-card:hover .store-product-image img {
+        transform: scale(1.04);
+    }
+
+    .store-product-info {
+        padding: 15px;
+    }
+
+    .store-product-title {
+        display: block;
+        min-height: 40px;
+        color: #72584e !important;
+        font-size: 13px;
+        line-height: 1.6;
+        font-weight: 600;
+        text-decoration: none !important;
+        margin-bottom: 8px;
+    }
+
+    .store-product-title:hover {
+        color: #a66b59 !important;
+    }
+
+    .store-product-price {
+        color: #a66b59;
+        font-size: 18px;
+        font-weight: bold;
+        margin-bottom: 13px;
+    }
+
+    .store-product-action {
+        display: block;
+        text-align: center;
+        background: #fffaf7;
+        border: 1px solid #ead9d1;
+        border-radius: 7px;
+        padding: 9px 5px;
+        color: #a66b59 !important;
+        text-decoration: none !important;
+        font-size: 12px;
+        transition: 0.3s;
+    }
+
+    .store-product-action:hover {
+        color: #fff !important;
+        background: #a66b59;
+        border-color: #a66b59;
+    }
+
+    /* Pagination */
+    .store-pagination {
+        justify-content: center;
+        flex-wrap: wrap;
+        gap: 5px;
+        margin-top: 15px;
+    }
+
+    .store-pagination .page-link {
+        border: 1px solid #ead9d1;
+        border-radius: 7px !important;
+        color: #a66b59;
+        background: #fff;
+        font-size: 12px;
+        padding: 9px 13px;
+    }
+
+    .store-pagination .page-link:hover {
+        background: #f8eee8;
+        border-color: #e7c9bd;
+    }
+
+    .store-pagination .page-item.active .page-link {
+        background: #a66b59;
+        border-color: #a66b59;
+        color: #fff;
+    }
+
+    .store-pagination .page-item.disabled .page-link {
+        color: #c8b7ae;
+        background: #fffaf7;
+    }
+
+    @media (max-width: 767px) {
+        .store-pagetop {
+            padding: 25px 0;
+            margin-bottom: 20px;
+        }
+
+        .store-pagetop h2 {
+            font-size: 28px;
+        }
+
+        .store-results-header h3 {
+            font-size: 21px;
+        }
+
+        .store-product-image img {
+            height: 180px;
+        }
+
+        .store-product-info {
+            padding: 11px;
+        }
+
+        .store-product-title {
+            font-size: 12px;
+        }
+
+        .store-product-price {
+            font-size: 16px;
+        }
+
+        .store-sidebar {
+            margin-bottom: 22px;
+        }
+    }
+
+    @media (max-width: 400px) {
+        .store-product-image img {
+            height: 150px;
+        }
+
+        .store-results-header {
+            align-items: flex-start;
+        }
+
+        .store-results-header h3 {
+            font-size: 19px;
+        }
+    }
+</style>
+
+<div class="store-page">
+
+    <!-- Page Heading -->
+    <section class="store-pagetop">
+        <div class="container">
+            <h2>Our Little Store ♡</h2>
+            <p>Find your next favourite handmade treasure ✿</p>
+        </div>
+    </section>
+
+    <!-- Store Content -->
+    <section class="container">
+        <div class="row">
+
+            <!-- Sidebar -->
+            <aside class="col-md-3">
+
+                <div class="store-sidebar">
+
+                    <!-- Categories -->
+                    <article class="filter-group">
+
+                        <header class="filter-header">
+                            <a href="#"
+                               data-toggle="collapse"
+                               data-target="#collapse_1"
+                               aria-expanded="true">
+
+                                <h6 class="title">Categories</h6>
+                                <i class="icon-control fa fa-chevron-down"></i>
+
+                            </a>
+                        </header>
+
+                        <div class="filter-content collapse show" id="collapse_1">
+                            <div class="filter-body">
+
+                                <ul class="store-category-list">
+
+                                    <li>
+                                        <a href="{% url 'store' %}">
+                                            ✿ All Products
+                                        </a>
+                                    </li>
+
+                                    {% for category in links %}
+                                    <li>
+                                        <a href="{{ category.get_url }}">
+                                            {{ category.category_name }}
+                                        </a>
+                                    </li>
+                                    {% endfor %}
+
+                                </ul>
+
+                            </div>
+                        </div>
+                    </article>
+
+                    <!-- Price Range -->
+                    <article class="filter-group">
+
+                        <header class="filter-header">
+                            <a href="#"
+                               data-toggle="collapse"
+                               data-target="#collapse_3"
+                               aria-expanded="true">
+
+                                <h6 class="title">Price Range</h6>
+                                <i class="icon-control fa fa-chevron-down"></i>
+
+                            </a>
+                        </header>
+
+                        <div class="filter-content collapse show" id="collapse_3">
+                            <div class="filter-body">
+
+                                <div class="form-row">
+
+                                    <div class="form-group col-6">
+                                        <label class="store-filter-label">
+                                            Min (₹)
+                                        </label>
+
+                                        <select class="form-control store-filter-select">
+                                            <option value="0">₹0</option>
+                                            <option value="50">₹50</option>
+                                            <option value="100">₹100</option>
+                                            <option value="150">₹150</option>
+                                            <option value="200">₹200</option>
+                                            <option value="500">₹500</option>
+                                            <option value="1000">₹1000</option>
+                                        </select>
+                                    </div>
+
+                                    <div class="form-group col-6">
+                                        <label class="store-filter-label">
+                                            Max (₹)
+                                        </label>
+
+                                        <select class="form-control store-filter-select">
+                                            <option value="50">₹50</option>
+                                            <option value="100">₹100</option>
+                                            <option value="150">₹150</option>
+                                            <option value="200">₹200</option>
+                                            <option value="500">₹500</option>
+                                            <option value="1000">₹1000</option>
+                                            <option value="2000">₹2000+</option>
+                                        </select>
+                                    </div>
+
+                                </div>
+
+                                <button type="button"
+                                        class="store-btn btn-block">
+                                    Apply Filters
+                                </button>
+
+                            </div>
+                        </div>
+                    </article>
+
+                </div>
+
+            </aside>
+
+            <!-- Products -->
+            <main class="col-md-9">
+
+                <div class="store-results-header">
+
+                    <div>
+                        <h3>Made Just for You ♡</h3>
+                        <p>
+                            Discover something lovely for yourself
+                            or someone special.
+                        </p>
+                    </div>
+
+                    <span class="store-count">
+                        {{ product_count }} items
+                    </span>
+
+                </div>
+
+                <div class="row">
+
+                    {% for product in products %}
+
+                    <div class="col-6 col-lg-4">
+
+                        <div class="store-product-card">
+
+                            <a href="{{ product.get_url }}"
+                               class="store-product-image">
+
+                                <img src="{{ product.images.url }}"
+                                     alt="{{ product.product_name }}"
+                                     loading="lazy">
+
+                            </a>
+
+                            <div class="store-product-info">
+
+                                <a href="{{ product.get_url }}"
+                                   class="store-product-title">
+                                    {{ product.product_name }}
+                                </a>
+
+                                <div class="store-product-price">
+                                    ₹{{ product.price }}
+                                </div>
+
+                                <a href="{{ product.get_url }}"
+                                   class="store-product-action">
+                                    View Details ♡
+                                </a>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                    {% endfor %}
+
+                </div>
+
+                <!-- Pagination -->
+                <nav class="mt-4" aria-label="Page navigation sample">
+
+                    <ul class="pagination store-pagination">
+
+                        <li class="page-item disabled">
+                            <a class="page-link" href="#">Previous</a>
+                        </li>
+
+                        <li class="page-item active">
+                            <a class="page-link" href="#">1</a>
+                        </li>
+
+                        <li class="page-item">
+                            <a class="page-link" href="#">2</a>
+                        </li>
+
+                        <li class="page-item">
+                            <a class="page-link" href="#">3</a>
+                        </li>
+
+                        <li class="page-item">
+                            <a class="page-link" href="#">Next</a>
+                        </li>
+
+                    </ul>
+
+                </nav>
+
+            </main>
+
+        </div>
+    </section>
+
+</div>
+
+{% endblock %}
